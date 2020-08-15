@@ -1,0 +1,78 @@
+@(username: String, post: Post, form: Form[CreatePostForm])(implicit assetsFinder: AssetsFinder, request: play.mvc.Http.Request)
+
+@createPostFoem = @{helper.CSRF(routes.HomeController.createPost())}
+@updatePostFoem = @{
+    helper.CSRF(routes.HomeController.updatePost(post.getId().toString))
+}
+
+@main("create post", username){
+    <div class="columns is-centered mt-4">
+        <div class="column is-8">
+            <div class="box">
+                @if(post == null){
+                    <h1 class="is-size-4 has-text-weight-semibold pb-3">Create Post</h1>
+                } else {
+                    <h1 class="is-size-4 has-text-weight-semibold pb-3">Update Post</h1>
+                }
+                @helper.form(if(post == null) { createPostFoem } else { updatePostFoem }) {
+                    <div class="field">
+                        <label class="label">Title</label>
+                        <div class="control">
+                            <input
+                            type="text"
+                            class="input @if(form != null && form.field("title").hasErrors) { is-danger }"
+                            name="title"
+                            placeholder="post title"
+                            value="@if(post != null) { @java.net.URLDecoder.decode(post.getTitle, java.nio.charset.StandardCharsets.UTF_8.name()) }">
+                        </div>
+                        @if(form != null && form.field("title").hasErrors) {
+                            @for(error <- form.field("title").errors()) {
+                                <p class="help is-danger">@error.message()</p>
+                            }
+                        }
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Content</label>
+                        <div class="control">
+                            @if(post == null) {
+                                <textarea
+                                class="textarea @if(form != null && form.field("content").hasErrors) { is-danger }"
+                                name="content"
+                                placeholder="content"
+                                rows="12">
+                                </textarea>
+                            } else {
+                                <textarea
+                                class="textarea"
+                                name="content"
+                                placeholder="content"
+                                rows="12">
+                                @post.getContent
+                                </textarea>
+                            }
+                        </div>
+                        @if(form != null && form.field("content").hasErrors) {
+                            @for(error <- form.field("content").errors()) {
+                                <p class="help is-danger">@error.message()</p>
+                            }
+                        }
+                    </div>
+
+                    <div class="field is-grouped mt-5">
+                        <div class="control">
+                            @if(post == null){
+                                <button type="submit" class="button is-link submit-btn">Create Post</button>
+                            } else {
+                                <button type="submit" class="button is-link submit-btn">Update Post</button>
+                            }
+                        </div>
+                        <div class="control">
+                            <a href="@routes.HomeController.index()" class="button is-link is-light">Cancel</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

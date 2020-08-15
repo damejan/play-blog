@@ -1,0 +1,88 @@
+@(form: Form[SignUpForm], existedUsername: String)(implicit assetsFinder: AssetsFinder,  request: play.mvc.Http.Request)
+
+@main("registration", null){
+    <div class="columns is-centered form-margin-top">
+        <div class="column is-5">
+            <div class="box">
+                <h1 class="is-size-4 has-text-weight-semibold pb-3">Registration Form</h1>
+                @helper.form(helper.CSRF(routes.AuthController.registration())) {
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input type="text"
+                            class="input @if(form.field("email").hasErrors) { is-danger }"
+                            name="email"
+                            placeholder="Your email"
+                            value="@form.field("email").value()">
+                        </div>
+                        @if(form.field("email").hasErrors) {
+                            @for(error <- form.field("email").errors()) {
+                                <p class="help is-danger">@error.message()</p>
+                            }
+                        }
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Username</label>
+                        <div class="control">
+                            <input type="text"
+                            class="input @if(form.field("username").hasErrors || existedUsername != null) { is-danger }"
+                            name="username"
+                            placeholder="username"
+                            value="@form.field("username").value()">
+                        </div>
+                        @if(form.field("username").hasErrors) {
+                            @for(error <- form.field("username").errors()) {
+                                <p class="help is-danger">@error.message()</p>
+                            }
+                        }
+                        @if(existedUsername != null) {
+                            <p class="help is-danger">User @existedUsername already exists</p>
+                        }
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input type="password"
+                            class="input @if(form.field("password").hasErrors) { is-danger }"
+                            name="password"
+                            placeholder="password"
+                            value="@form.field("password").value()">
+                        </div>
+                        @if(form.field("password").hasErrors) {
+                            @for(error <- form.field("password").errors()) {
+                                <p class="help is-danger">@error.message()</p>
+                            }
+                        }
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Confirm password</label>
+                        <div class="control">
+                            <input type="password"
+                            class="input @if(form.field("confirmPassword").hasErrors) { is-danger }"
+                            name="confirmPassword"
+                            placeholder="password"
+                            value="@form.field("confirmPassword").value()">
+                        </div>
+                        @if(form.field("confirmPassword").hasErrors) {
+                            @for(error <- form.field("confirmPassword").errors()) {
+                                <p class="help is-danger">@error.message()</p>
+                            }
+                        }
+                    </div>
+
+                    <div class="field is-grouped mt-5">
+                        <div class="control">
+                            <button type="submit" class="button is-link submit-btn">Submit</button>
+                        </div>
+                        <div class="control">
+                            <a href="@routes.HomeController.index()" class="button is-link is-light">Cancel</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

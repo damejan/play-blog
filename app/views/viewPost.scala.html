@@ -1,0 +1,26 @@
+@(username: String, post: Post)(implicit assetsFinder: AssetsFinder, request: play.mvc.Http.Request)
+
+@main("Play blog", username) {
+    <div class="columns is-centered mt-4">
+        <div class="column is-8">
+            <div class="box">
+                <h1 class="is-size-1 has-text-weight-bold">@java.net.URLDecoder.decode(post.getTitle, java.nio.charset.StandardCharsets.UTF_8.name())</h1>
+                <div class="content">
+                    @Html(post.getContent)
+                </div>
+                <div class="media mt-4">
+                    <div class="media-left">
+                        <p>created by <a href="">@post.getAuthorName</a></p>
+                    </div>
+                    <div class="media-content">
+                        <p class="has-text-centered">@post.getCreationDate</p>
+                    </div>
+                    <div class="media-right">
+                        <a href="@routes.HomeController.editPostPage(post.getId.toString)" class="button is-info">Edit</a>
+                        <a href="@routes.HomeController.deletePost(post.getId.toString)" class="button is-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

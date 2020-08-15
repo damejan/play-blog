@@ -1,0 +1,46 @@
+@(form: Form[LoginForm])(implicit assetsFinder: AssetsFinder, request: play.mvc.Http.Request)
+
+@main("login", null){
+    <div class="columns is-centered form-margin-top">
+        <div class="column is-5">
+            <div class="box">
+                <h1 class="is-size-4 has-text-weight-semibold pb-3">Login Form</h1>
+                @helper.form(helper.CSRF(routes.AuthController.login())){
+                    <div class="field">
+                        <label class="label">Username</label>
+                        <div class="control">
+                            <input type="text"
+                            class="input"
+                            name="username"
+                            placeholder="username">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input type="password"
+                            class="input"
+                            name="password"
+                            placeholder="password">
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped mt-5">
+                        <div class="control">
+                            <button type="submit" class="button is-link submit-btn">Login up</button>
+                        </div>
+                        <div class="control">
+                            <a href="@routes.HomeController.index()" class="button is-link is-light">Cancel</a>
+                        </div>
+                    </div>
+                    @if(form.hasErrors) {
+                        @for(error <- form.errors()) {
+                            <p class="help is-danger">@error.message()</p>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,27 @@
+@(username: String, posts: List[Post])(implicit assetsFinder: AssetsFinder, request: play.mvc.Http.Request)
+
+@main("Play blog", username) {
+  <div class="columns is-centered ">
+    <div class="column is-5">
+      @for(post <- posts) {
+        <div class="card mt-4">
+          <div class="card-content">
+            <a href="@routes.HomeController.viewPost(post.getTitle)">
+              <p class="title is-size-4">@java.net.URLDecoder.decode(post.getTitle, java.nio.charset.StandardCharsets.UTF_8.name())</p>
+              @if(post.getContent().size > 150) {
+                <p class="subtitle">@post.getContent().substring(0, 150)...</p>
+              } else {
+                <p class="subtitle">@post.getContent()</p>
+              }
+            </a>
+          </div>
+          <div class="card-footer">
+            <p class="card-footer-item">
+              <span>created by <a href="">@post.getAuthorName</a></span>
+            </p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

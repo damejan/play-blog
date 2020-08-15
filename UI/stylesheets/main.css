@@ -1,0 +1,15 @@
+@import 'bulma';
+
+@media screen and (min-width: 769px) {
+    .form-margin-top {
+        margin-top: 10rem;
+    }
+}
+
+.disable-btn {
+    opacity: .5;
+}
+
+.disable-btn-hover {
+    cursor: not-allowed;
+}

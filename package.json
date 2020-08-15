@@ -1,0 +1,23 @@
+{
+  "name": "play-blog-assets",
+  "version": "1.0.0",
+  "description": "static assets like js and css for play application",
+  "main": "build-ui-assets.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "node ./build-ui-assets.js",
+    "build": "env ENVIRONMENT=prod node ./build-ui-assets.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "bulma": "^0.9.0",
+    "highlight.js": "^10.1.2"
+  }
+}

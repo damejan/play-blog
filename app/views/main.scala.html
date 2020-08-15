@@ -1,0 +1,26 @@
+@(title: String, username: String)(content: Html)(implicit assetsFinder: AssetsFinder, request: play.mvc.Http.Request)
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="@assetsFinder.path("stylesheets/main.css")">
+        @if(request.uri().startsWith("/post")) {
+            <link rel="stylesheet" href="@assetsFinder.path("stylesheets/viewPostPage.css")">
+        }
+        <title>@title</title>
+    </head>
+    <body>
+        <div class="container">
+            @partials.navbar(username)
+            @content
+        </div>
+
+        <script src="@assetsFinder.path("javascripts/main.js")"></script>
+        @if(request.uri().startsWith("/post")) {
+            <script src="@assetsFinder.path("javascripts/viewPostPage.js")"></script>
+        }
+    </body>
+</html>

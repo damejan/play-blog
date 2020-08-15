@@ -1,0 +1,39 @@
+@(username: String)(implicit request: play.mvc.Http.Request)
+<nav class="navbar">
+    <div class="container">
+        <div class="navbar-brand">
+            <a href="@routes.HomeController.index()" class="navbar-item is-size-4" style="font-weight: bold">Play! blog</a>
+            <span class="navbar-burger burger" data-target="navMenu">
+                <span></span>
+                <span></span>
+            </span>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-end">
+                @if(username != null) {
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a href="@routes.HomeController.createPostPage()" class="button is-info is-outlined">New post</a>
+                        </div>
+                    </div>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">@username</a>
+                        <div class="navbar-dropdown">
+                            <a href="#" class="navbar-item">Account</a>
+                            <a href="@routes.AuthController.logout()" class="navbar-item">Log out</a>
+                        </div>
+                    </div>
+                } else {
+                    <a href="@routes.AuthController.registrationPage()"
+                    class="navbar-item @if(request.uri().equals("/registration")) { is-active has-text-weight-bold }">
+                        Sign up
+                    </a>
+                    <a href="@routes.AuthController.loginPage()"
+                    class="navbar-item @if(request.uri().equals("/login")) { is-active has-text-weight-bold }">
+                        Login up
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</nav>
