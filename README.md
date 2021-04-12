@@ -6,3 +6,9 @@ Simple markdown based blog with basic authentication. Written in Play! Framework
 2. `npm install` to install nodejs dependencies
 3. `npm run watch` to build static assets in hot reload mode.
 4. `sbt run` to start server.
+
+***
+
+![image](https://raw.githubusercontent.com/damian14443/play-blog/master/screenshoots/screen1.png)
+
+![image](https://raw.githubusercontent.com/damian14443/play-blog/master/screenshoots/screen2.png)
